@@ -13,7 +13,8 @@ The starter template package will take care of asking the necessary details, and
 It will try to do so in least invasive way, so that after initialization, one would still need to e.g. install dependencies (using favourite package manager).
 The instructions will be in the `REAMDE.md` file which will be part of the newly initialized project.
 
-It is also possible to provide details as command-line arguments, please run `npx @ty-ras/start@latest --help` for more information.
+It is also possible to provide details as command-line arguments, to avoid prompting via stdin.
+Please run `npx @ty-ras/start@latest --help` for more information about the command-line arguments.
 
 # Using TyRAS In Existing Projects
 To use TyRAS in a project which is already created and initialized, start by making few choices:
