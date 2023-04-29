@@ -3,22 +3,34 @@
 The Typesafe REST API Specification (TyRAS) is a project aimed to make it easy and intuitive to create compile- and runtime safe HTTP servers and clients operating on a shared data scheme.
 Currently TyRAS contains multiple libraries written in TypeScript, to be used by both HTTP servers and clients.
 
-# Using TyRAS
+# Using TyRAS For New Projects
+When creating a project which is TyRAS-enabled, simply run the starter template package to get most of the initialization done for you:
+```sh
+npx @ty-ras/start@latest
+```
 
-To use TyRAS in your project, start by making few choices:
+The starter template package will take care of asking the necessary details, and then initialize the project.
+It will try to do so in least invasive way, so that after initialization, one would still need to e.g. install dependencies (using favourite package manager).
+The instructions will be in the `REAMDE.md` file which will be part of the newly initialized project.
+
+It is also possible to provide details as command-line arguments, to avoid prompting via stdin.
+Please run `npx @ty-ras/start@latest --help` for more information about the command-line arguments.
+
+# Using TyRAS In Existing Projects
+To use TyRAS in a project which is already created and initialized, start by making few choices:
 - Pick the data validation framework
   - [io-ts](https://github.com/gcanti/io-ts),
   - [zod](https://github.com/colinhacks/zod), or
-  - [runtypes](https://github.com/pelotom/runtypes) (not yet implemented, but TyRAS support coming soon!).
+  - [runtypes](https://github.com/pelotom/runtypes) (TyRAS support not yet implemented, but coming soon!).
 - For server projects, pick the HTTP server to use:
   - [Node HTTP(S) 1/2 server](https://nodejs.org/dist/latest-v18.x/docs/api/http.html),
-  - [koa](https://github.com/koajs/koa) (not yet implemented, but TyRAS support coming soon!),
-  - [expressjs](https://github.com/expressjs/express) (not yet implemented, but TyRAS support coming soon!), or
-  - [fastify](https://github.com/fastify/fastify) (not yet implemented, but TyRAS support coming soon!).
+  - [koa](https://github.com/koajs/koa) (TyRAS support not yet implemented, but coming soon!),
+  - [expressjs](https://github.com/expressjs/express) (TyRAS support not yet implemented, but coming soon!), or
+  - [fastify](https://github.com/fastify/fastify) (TyRAS support not yet implemented, but coming soon!).
 - For client projects, pick the HTTP request framework to use:
   - [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API),
-  - [Node request API](https://nodejs.org/api/http.html) (not yet implemented, but TyRAS support coming soon!), or
-  - [axios](https://github.com/axios/axios) (not yet implemented, but TyRAS support coming soon!).
+  - [Node request API](https://nodejs.org/api/http.html) (TyRAS support not yet implemented, but coming soon!), or
+  - [axios](https://github.com/axios/axios) (TyRAS support not yet implemented, but coming soon!).
 
 With the choices made, add the following dependency to your `package.json` file if doing server project:
 ```json
@@ -76,8 +88,6 @@ await tyras.listenAsync(
 console.log("HTTP server started.");
 ```
 
-There is more systematic approach also instead of adhoc code above, to define REST API on server side.
-While the npx starter template is still not completed, the [basic sample repository](https://github.com/ty-ras/sample-be-fe-monorepo) and [multitenancy sample repository](https://github.com/ty-ras/sample-be-fe-monorepo-multitenant) provide some example on that. 
 
 And on the frontend, it will look something like this:
 ```ts
@@ -114,3 +124,7 @@ const renderMyView = () => {
   ...
 };
 ```
+
+It is good idea to take a look on what kind of code is created by starter template by running `npx @ty-ras/start@latest`, filling in the details, and then examining the code it created.
+There are some tips and ideas which hopefully will make adaptation of TyRAS easier.
+The code created by starter template is more systematic approach, than the adhoc code samples above.
