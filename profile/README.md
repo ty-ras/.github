@@ -3,6 +3,18 @@
 The Typesafe REST API Specification (TyRAS) is a project aimed to make it easy and intuitive to create compile- and runtime safe HTTP servers and clients operating on a shared data scheme.
 Currently TyRAS contains multiple libraries written in TypeScript, to be used by both HTTP servers and clients.
 
+For servers, TyRAS enables the following:
+- ✨ Define server endpoints using [TS5 decorators](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#decorators) ([aka ES decorators](https://2ality.com/2022/10/javascript-decorators.html)), keeping the code clear, reusable, and concise. ✨
+- 🛠️ Have _both_ **runtime** _and_ **compile-time** validation for all of the input and output of all of the endpoints. 🛠️
+- 📖 Have _compile-time -safe_ OpenAPI documentation, with TyRAS automatically building necessary JSON schema definitions from validation objects. 📖
+
+For clients, TyRAS enables the following:
+- ✅ Define server endpoint _calls_ as normal asynchronous functions, simplifying code. ✅
+- 🛠️ Have _both_ runtime _and_ compile-time validation for all of the input and output of all of the endpoint call functions. 🛠️
+
+And if TyRAS is used in both server and client (recommended setup!), one can encapsulate the definitions for HTTP endpoints and all of their inputs and outputs into _one place_, removing completely any duplication in the definitions!
+This is how `@ty-ras/start` behaves if one selects the option that project should host both server and client.
+
 # Using TyRAS For New Projects
 When creating a project which is TyRAS-enabled, simply run the starter template package to get most of the initialization done for you:
 ```sh
@@ -35,96 +47,21 @@ To use TyRAS in a project which is already created and initialized, start by mak
 With the choices made, add the following dependency to your `package.json` file if doing server project:
 ```json
   // Required for minimal operation
-  "@ty-ras/backend-<server>-<data validation>-openapi": "0.13.5",
+  "@ty-ras/backend-<server>-<data validation>-openapi": "^2.0.0",
   // Optional addons containing various utility methods commonly used in server projects
-  "@ty-ras-extras/backend-<data validation>": "0.13.5",
+  "@ty-ras-extras/backend-<data validation>": "^2.0.0",
 ```
 
 Correspondingly, the client project dependencies will look like this:
 ```json
   // Required for minimal operation
-  "@ty-ras/frontend-<client>-<data validation>": "0.13.1",
+  "@ty-ras/frontend-<client>-<data validation>": "^2.0.0",
   // Optional addons containing various utility methods commonly used in client projects
-  "@ty-ras-extras/frontend-<data validation>": "0.13.2",
+  "@ty-ras-extras/frontend-<data validation>": "^2.0.0",
 ```
 
-After running dependency installation with your favorite package manager, it is possible to start the server...
-```ts
-import * as t from "io-ts";
-import * as tyras from "@ty-ras/backend-node-io-ts-openapi";
+Finally, run `npx @ty-ras/start@latest` to some dummy folder, and take a look at the template it creates.
+Familiarize yourself with the concepts, and adopt them to your existing project.
 
-// Start HTTP server created by tyras.createServer
-await tyras.listenAsync(
-  // Create simple HTTP server which responds "world!" from "/hello" URL.
-  tyras.createServer({
-    endpoints: [
-      // Just one endpoint
-      // Specify URL of the endpoint
-      tyras.startBuildingAPI().atURL`/hello`
-        // Specify the HTTP method for the endpoint
-        .forMethod("GET", {
-          stateInfo: undefined,
-          validator: tyras.plainValidator(t.undefined),
-        })
-        // Specify the functionality and output validator for the endpoint
-        .withoutBody(
-          // Implementation
-          () => "world!" as const,
-          // Output validation
-          tyras.responseBody(t.literal("world!"), false),
-          // Metadata additional information (not present in this small code sample)
-          {},
-        )
-        // We are fine with just GET at this URL, create endpoint
-        .createEndpoint({}).endpoint,
-    ],
-  }),
-  // Host to listen to
-  "0.0.0.0",
-  // Port to listen to
-  8080,
-);
-
-console.log("HTTP server started.");
-```
-
-
-And on the frontend, it will look something like this:
-```ts
-// services/backend.ts
-import * as tyras from "@ty-ras/frontend-fetch-io-ts";
-import * as t from "io-ts";
-
-const apiCall = tyras
-  // Bind endpoints to go to this server
-  .createAPICallFactory(tyras.createCallHTTPEndpoint("http://localhost:8080"))
-  // No header functionality for this simple sample
-  .withHeaders({});
-
-// Export the backend object
-export default {
-  // We have only one endpoint - these can be freely named as seen best
-  sayHello: apiCall.makeAPICall({
-    // Notice that these match the ones specified in server sample
-    method: tyras.METHOD_GET,
-    url: "/hello",
-    response: tyras.plainValidator(t.literal("world!")),
-  }),
-};
-```
-```ts
-// some-view.ts
-import backend from "services/backend";
-
-const renderMyView = () => {
-  ...
-  // onClick will be of type
-  // () => Promise<tyras.APICallResult<"world!">>
-  const onClick = async () => await backend.sayHello();
-  ...
-};
-```
-
-It is good idea to take a look on what kind of code is created by starter template by running `npx @ty-ras/start@latest`, filling in the details, and then examining the code it created.
-There are some tips and ideas which hopefully will make adaptation of TyRAS easier.
-The code created by starter template is more systematic approach, than the adhoc code samples above.
+Alternatively, instead of running `@ty-ras/start`, one can take a look at [starter template sources](https://github.com/ty-ras/meta/tree/main/start/templates/) to get an idea of how the template will look like.
+Navigate to `<validation framework>/code` folder to see the template contents.
