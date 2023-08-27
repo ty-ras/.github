@@ -13,7 +13,7 @@ For clients, TyRAS enables the following:
 - 🛠️ Have _both_ runtime _and_ compile-time validation for all of the input and output of all of the endpoint call functions. 🛠️
 
 And if TyRAS is used in both server and client (recommended setup!), one can encapsulate the definitions for HTTP endpoints and all of their inputs and outputs into _one place_, removing completely any duplication in the definitions!
-This is how `@ty-ras/start` behaves if one selects the option that project should host both server and client.
+This is how `@ty-ras/start` starter template generator behaves if one selects the option that project should host both server and client.
 
 # Using TyRAS For New Projects
 When creating a project which is TyRAS-enabled, simply run the starter template package to get most of the initialization done for you:
@@ -31,18 +31,18 @@ Please run `npx @ty-ras/start@latest --help` for more information about the comm
 # Using TyRAS In Existing Projects
 To use TyRAS in a project which is already created and initialized, start by making few choices:
 - Pick the data validation framework
-  - [io-ts](https://github.com/gcanti/io-ts),
-  - [zod](https://github.com/colinhacks/zod), or
-  - [runtypes](https://github.com/pelotom/runtypes) (TyRAS support not yet implemented, but coming soon!).
+  - [`io-ts`](https://github.com/gcanti/io-ts),
+  - [`zod`](https://github.com/colinhacks/zod), or
+  - [`runtypes`](https://github.com/pelotom/runtypes).
 - For server projects, pick the HTTP server to use:
   - [Node HTTP(S) 1/2 server](https://nodejs.org/dist/latest-v18.x/docs/api/http.html),
-  - [koa](https://github.com/koajs/koa) (TyRAS support not yet implemented, but coming soon!),
-  - [expressjs](https://github.com/expressjs/express) (TyRAS support not yet implemented, but coming soon!), or
-  - [fastify](https://github.com/fastify/fastify) (TyRAS support not yet implemented, but coming soon!).
+  - [Koa](https://github.com/koajs/koa),
+  - [Express.JS](https://github.com/expressjs/express), or
+  - [Fastify](https://github.com/fastify/fastify).
 - For client projects, pick the HTTP request framework to use:
-  - [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API),
+  - [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API),
   - [Node request API](https://nodejs.org/api/http.html) (TyRAS support not yet implemented, but coming soon!), or
-  - [axios](https://github.com/axios/axios) (TyRAS support not yet implemented, but coming soon!).
+  - [Axios](https://github.com/axios/axios) (TyRAS support not yet implemented, but coming soon!).
 
 With the choices made, add the following dependency to your `package.json` file if doing server project:
 ```json
@@ -63,5 +63,5 @@ Correspondingly, the client project dependencies will look like this:
 Finally, run `npx @ty-ras/start@latest` to some dummy folder, and take a look at the template it creates.
 Familiarize yourself with the concepts, and adopt them to your existing project.
 
-Alternatively, instead of running `@ty-ras/start`, one can take a look at [starter template sources](https://github.com/ty-ras/meta/tree/main/start/templates/) to get an idea of how the template will look like.
+Alternatively, instead of running `@ty-ras/start`, one can take a look at [starter template sources](https://github.com/ty-ras/start/tree/main/code/templates/) to get an idea of how the template will look like.
 Navigate to `<validation framework>/code` folder to see the template contents.
