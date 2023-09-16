@@ -3,17 +3,24 @@
 The Typesafe REST API Specification (TyRAS) is a project aimed to make it easy and intuitive to create compile- and runtime safe HTTP servers and clients operating on a shared data scheme.
 Currently TyRAS contains multiple libraries written in TypeScript, to be used by both HTTP servers and clients.
 
-For servers, TyRAS enables the following:
-- ✨ Define server endpoints using [TS5 decorators](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#decorators) ([aka ES decorators](https://2ality.com/2022/10/javascript-decorators.html)), keeping the code clear, reusable, and concise. ✨
-- 🛠️ Have _both_ **runtime** _and_ **compile-time** validation for all of the input and output of all of the endpoints. 🛠️
-- 📖 Have _compile-time -safe_ OpenAPI documentation, with TyRAS automatically building necessary JSON schema definitions from validation objects. 📖
+TyRAS will boost productivity and code maintainability whenever there is need to use HTTP protocol either as a server od a client (or both!).
+The productivity boost will come from the fact that TyRAS supplies various pre-defined helpers that allow you to precisely define how the HTTP endpoints behave, while at the same time being easy to use and having sensible defaults.
+And the maintainability will stem from the TyRAS making it effortless to maintain [DRY principle](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself): define runtime validators (utilizing `io-ts`, `zod`, or `runtypes` framework) in one place, and the compile-time types and OpenAPI JSON schema definitions (for server projects) will stem from the same runtime validator objects.
 
-For clients, TyRAS enables the following:
-- ✅ Define server endpoint _calls_ as normal asynchronous functions, simplifying code. ✅
-- 🛠️ Have _both_ runtime _and_ compile-time validation for all of the input and output of all of the endpoint call functions. 🛠️
+To re-cap:
+- For servers, TyRAS enables the following:
+    - ✨ Define server endpoints using [TS5 decorators](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#decorators) ([aka ES decorators](https://2ality.com/2022/10/javascript-decorators.html)), keeping the code clear, reusable, and concise. ✨
+    - 🛠️ Have _both_ **runtime** _and_ **compile-time** validation for all of the input and output of all of the endpoints. 🛠️
+    - 📖 Have _compile-time -safe_ OpenAPI documentation, with TyRAS automatically building necessary JSON schema definitions from validation objects. 📖
+- For clients, TyRAS enables the following:
+    - ✅ Define server endpoint _calls_ as normal asynchronous functions, simplifying code. ✅
+    - 🛠️ Have _both_ runtime _and_ compile-time validation for all of the input and output of all of the endpoint call functions. 🛠️
 
-And if TyRAS is used in both server and client (recommended setup!), one can encapsulate the definitions for HTTP endpoints and all of their inputs and outputs into _one place_, removing completely any duplication in the definitions!
+And if TyRAS is used in both server and client (recommended setup!), one can encapsulate the definitions for HTTP endpoints and all of their inputs and outputs into _one place_, furthermore improving the DRY principle.
 This is how `@ty-ras/start` starter template generator behaves if one selects the option that project should host both server and client.
+
+The quickest way to explore how TyRAS works is to run `npx @ty-ras/start@latest` and let it set up a project for you.
+Alternatively, there exists [sample repo for CRUD backend](https://github.com/ty-ras/sample-crud) and [another sample repo for microservices](https://github.com/ty-ras/sample-microservices) to give larger and more holistic examples on TyRAS usage.
 
 # Using TyRAS For New Projects
 When creating a project which is TyRAS-enabled, simply run the starter template package to get most of the initialization done for you:
@@ -34,6 +41,7 @@ To use TyRAS in a project which is already created and initialized, start by mak
   - [`io-ts`](https://github.com/gcanti/io-ts),
   - [`zod`](https://github.com/colinhacks/zod), or
   - [`runtypes`](https://github.com/pelotom/runtypes).
+  - The support for [`@effect/schema`](https://github.com/Effect-TS/schema) will be coming once `1.x` versions are published.
 - For server projects, pick the HTTP server to use:
   - [Node HTTP(S) 1/2 server](https://nodejs.org/dist/latest-v18.x/docs/api/http.html),
   - [Koa](https://github.com/koajs/koa),
@@ -41,8 +49,8 @@ To use TyRAS in a project which is already created and initialized, start by mak
   - [Fastify](https://github.com/fastify/fastify).
 - For client projects, pick the HTTP request framework to use:
   - [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API),
-  - [Node request API](https://nodejs.org/api/http.html) (TyRAS support not yet implemented, but coming soon!), or
-  - [Axios](https://github.com/axios/axios) (TyRAS support not yet implemented, but coming soon!).
+  - [Node request API](https://nodejs.org/api/http.html), or
+  - [Axios](https://github.com/axios/axios).
 
 With the choices made, add the following dependency to your `package.json` file if doing server project:
 ```json
@@ -64,4 +72,4 @@ Finally, run `npx @ty-ras/start@latest` to some dummy folder, and take a look at
 Familiarize yourself with the concepts, and adopt them to your existing project.
 
 Alternatively, instead of running `@ty-ras/start`, one can take a look at [starter template sources](https://github.com/ty-ras/start/tree/main/code/templates/) to get an idea of how the template will look like.
-Navigate to `<validation framework>/code` folder to see the template contents.
+Navigate to `<validation framework>/code` subfolder to see the template contents.
