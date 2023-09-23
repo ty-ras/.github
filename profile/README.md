@@ -1,6 +1,10 @@
-# Typesafe REST API Specification (TyRAS)
+# Typesafe REST API Specification (TyRAS) Toolset
 
-The Typesafe REST API Specification (TyRAS) is a project aimed to make it easy and intuitive to create compile- and runtime safe HTTP servers and clients operating on a shared data scheme.
+| ![Animation of Usage when refactoring protocol](https://raw.githubusercontent.com/ty-ras/.github/main/profile/img/usage.gif) |
+| :--------------------------------------------------------------------------------------------------------------------------: |
+|      Short animation about how refactoring shape of data moving over HTTP protocol shows up in both server and client.       |
+
+The Typesafe REST API Specification (TyRAS) toolset is a framework for developers to use to define REST APIs in easy and intuitive way while preserving compile- and runtime safety HTTP servers and clients operating on a shared data scheme.
 Currently TyRAS contains multiple libraries written in TypeScript, to be used by both HTTP servers and clients.
 
 TyRAS will boost productivity and code maintainability whenever there is need to use HTTP protocol either as a server od a client (or both!).
